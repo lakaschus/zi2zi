@@ -8,7 +8,8 @@ import glob
 import imageio
 import scipy.misc as misc
 import numpy as np
-from cStringIO import StringIO
+#from cStringIO import StringIO
+from io import StringIO, BytesIO
 
 
 def pad_seq(seq, batch_size):
@@ -22,7 +23,7 @@ def pad_seq(seq, batch_size):
 
 
 def bytes_to_file(bytes_img):
-    return StringIO(bytes_img)
+    return BytesIO(bytes_img)
 
 
 def normalize_image(img):
@@ -34,7 +35,7 @@ def normalize_image(img):
 
 
 def read_split_image(img):
-    mat = misc.imread(img).astype(np.float)
+    mat = imageio.imread(img).astype(np.float)
     side = int(mat.shape[1] / 2)
     assert side * 2 == mat.shape[1]
     img_A = mat[:, :side]  # target
@@ -66,7 +67,7 @@ def merge(images, size):
 
 def save_concat_images(imgs, img_path):
     concated = np.concatenate(imgs, axis=1)
-    misc.imsave(img_path, concated)
+    imageio.imsave(img_path, concated)
 
 
 def compile_frames_to_gif(frame_dir, gif_file):

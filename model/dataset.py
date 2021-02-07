@@ -1,26 +1,42 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from __future__ import absolute_import
-import cPickle as pickle
+#import pickle
+#from _pickle.cPickle.Pickle import pickle
+#import cPickle as pickle
+import _pickle as pickle
 import numpy as np
 import random
 import os
 from .utils import pad_seq, bytes_to_file, \
     read_split_image, shift_and_resize_image, normalize_image
+from importlib import reload
+import sys
+if sys.version[0] == '2':
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 
 class PickledImageProvider(object):
     def __init__(self, obj_path):
+        print("#\nPickledImageProvider initialized!\n#")
         self.obj_path = obj_path
         self.examples = self.load_pickled_examples()
 
     def load_pickled_examples(self):
+        print("#\nload_pickled_examples called!\n#")
+        print(self.obj_path)
         with open(self.obj_path, "rb") as of:
+            #assert isinstance(of, str)
+            e = pickle.load(of, encoding='bytes')
+            #print(e)
             examples = list()
             while True:
                 try:
-                    e = pickle.load(of)
+                    #print("#\nload pickled file!\n#")
+                    e = pickle.load(of, encoding='bytes')
                     examples.append(e)
+                    #print(examples)
                     if len(examples) % 1000 == 0:
                         print("processed %d examples" % len(examples))
                 except EOFError:
@@ -118,6 +134,8 @@ class TrainDataProvider(object):
 
 class InjectDataProvider(object):
     def __init__(self, obj_path):
+        print("#\nInjectDataProvider class initialized!\n#")
+        print(obj_path)
         self.data = PickledImageProvider(obj_path)
         print("examples -> %d" % len(self.data.examples))
 

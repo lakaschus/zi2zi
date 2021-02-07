@@ -12,8 +12,12 @@ from PIL import ImageFont
 import json
 import collections
 
-reload(sys)
-sys.setdefaultencoding("utf-8")
+#reload(sys)
+#sys.setdefaultencoding("utf-8")
+
+if sys.version[0] == '2':
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 CN_CHARSET = None
 CN_T_CHARSET = None
@@ -24,12 +28,12 @@ DEFAULT_CHARSET = "./charset/cjk.json"
 
 
 def load_global_charset():
-    global CN_CHARSET, JP_CHARSET, KR_CHARSET, CN_T_CHARSET
+    global CN_CHARSET#, JP_CHARSET, KR_CHARSET, CN_T_CHARSET
     cjk = json.load(open(DEFAULT_CHARSET))
-    CN_CHARSET = cjk["gbk"]
-    JP_CHARSET = cjk["jp"]
-    KR_CHARSET = cjk["kr"]
-    CN_T_CHARSET = cjk["gb2312_t"]
+    CN_CHARSET = cjk["CN"]
+    #JP_CHARSET = cjk["jp"]
+    #KR_CHARSET = cjk["kr"]
+    #CN_T_CHARSET = cjk["gb2312_t"]
 
 
 def draw_single_char(ch, font, canvas_size, x_offset, y_offset):
