@@ -8,6 +8,7 @@ import os
 import pickle
 import random
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 def pickle_examples(paths, train_path, val_path, train_val_split=0.1):
     """

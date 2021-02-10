@@ -1,4 +1,4 @@
-** zi2zi for Python 3 **
+# zi2zi for Python 3 
 
 Forked from https://github.com/kaonashi-tyc/zi2zi
 
@@ -10,7 +10,7 @@ Here I did some small adjustments in order to run the generator using the pretra
 2) This model is trained with training data in SIMSUN font. Therefore you should download the simsun font on the internet, just to comply with the source code.
 3) Run
 
-python font2img.py --src_font=SIMSUN.ttf --dst_font=MaShanZheng.ttf --charset=CN --sample_count=4 --sample_dir=hanzi_dir --label=0 --filter=0 --shuffle=1
+python font2img.py --src_font=SIMSUN.ttf --dst_font=MaShanZheng.ttf --charset=CN --sample_count=1 --sample_dir=hanzi_dir --label=0 --filter=0 --shuffle=0
 
 
 This script converts text to images. The characters are defined in charset/cjk.json. If you want to use your own set of characters create a json analogous to cjk.json but with your characters and point to the new json by changing DEFAULT_CHARSET in **font2img.py**.

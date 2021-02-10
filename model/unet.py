@@ -129,7 +129,7 @@ class UNet(object):
             return output
 
     def generator(self, images, embeddings, embedding_ids, inst_norm, is_training, reuse=False):
-        print("#\ngenerator called\n#")
+        #print("#\ngenerator called\n#")
         e8, enc_layers = self.encoder(images, is_training=is_training, reuse=reuse)
         local_embeddings = tf.nn.embedding_lookup(embeddings, ids=embedding_ids)
         local_embeddings = tf.reshape(local_embeddings, [self.batch_size, 1, 1, self.embedding_dim])
@@ -392,11 +392,11 @@ class UNet(object):
         gen_saver.save(self.sess, os.path.join(save_dir, model_name), global_step=0)
 
     def infer(self, source_obj, embedding_ids, model_dir, save_dir):
-        print("#\ninfer called!\n#")
+        #print("#\ninfer called!\n#")
         source_provider = InjectDataProvider(source_obj)
 
         if isinstance(embedding_ids, int) or len(embedding_ids) == 1:
-            print("#\nisinstance\n#")
+            #print("#\nisinstance\n#")
             embedding_id = embedding_ids if isinstance(embedding_ids, int) else embedding_ids[0]
             source_iter = source_provider.get_single_embedding_iter(self.batch_size, embedding_id)
         else:
@@ -407,7 +407,7 @@ class UNet(object):
         self.restore_model(saver, model_dir)
 
         def save_imgs(imgs, count):
-            print("#\nsave_imgs called!\n#")
+            #print("#\nsave_imgs called!\n#")
             p = os.path.join(save_dir, "inferred_%04d.png" % count)
             save_concat_images(imgs, img_path=p)
             print("generated images saved at %s" % p)

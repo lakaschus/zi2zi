@@ -15,6 +15,8 @@ import collections
 #reload(sys)
 #sys.setdefaultencoding("utf-8")
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+
 if sys.version[0] == '2':
     reload(sys)
     sys.setdefaultencoding("utf-8")

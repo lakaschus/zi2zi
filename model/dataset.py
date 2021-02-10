@@ -19,16 +19,16 @@ if sys.version[0] == '2':
 
 class PickledImageProvider(object):
     def __init__(self, obj_path):
-        print("#\nPickledImageProvider initialized!\n#")
+        #print("#\nPickledImageProvider initialized!\n#")
         self.obj_path = obj_path
         self.examples = self.load_pickled_examples()
 
     def load_pickled_examples(self):
-        print("#\nload_pickled_examples called!\n#")
-        print(self.obj_path)
+        #print("#\nload_pickled_examples called!\n#")
+        #print(self.obj_path)
         with open(self.obj_path, "rb") as of:
             #assert isinstance(of, str)
-            e = pickle.load(of, encoding='bytes')
+            #e = pickle.load(of, encoding='bytes')
             #print(e)
             examples = list()
             while True:
@@ -36,7 +36,6 @@ class PickledImageProvider(object):
                     #print("#\nload pickled file!\n#")
                     e = pickle.load(of, encoding='bytes')
                     examples.append(e)
-                    #print(examples)
                     if len(examples) % 1000 == 0:
                         print("processed %d examples" % len(examples))
                 except EOFError:
@@ -134,8 +133,8 @@ class TrainDataProvider(object):
 
 class InjectDataProvider(object):
     def __init__(self, obj_path):
-        print("#\nInjectDataProvider class initialized!\n#")
-        print(obj_path)
+        #print("#\nInjectDataProvider class initialized!\n#")
+        #print(obj_path)
         self.data = PickledImageProvider(obj_path)
         print("examples -> %d" % len(self.data.examples))
 

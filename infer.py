@@ -8,6 +8,8 @@ import argparse
 from model.unet import UNet
 from model.utils import compile_frames_to_gif
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+
 """
 People are made to have fun and be 中二 sometimes
                                 --Bored Yan LeCun
@@ -32,24 +34,16 @@ args = parser.parse_args()
 
 
 def main(_):
-    print("main routine started...")
-    print("####################")
-    print("\n\n\n\n\n\n\n\n\n\n")
-    print("####################")
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
 
     with tf.Session(config=config) as sess:
-        print("TF started...")
-        print("####################")
-        print("\n\n\n\n\n\n\n\n\n\n")
-        print("####################")
         model = UNet(batch_size=args.batch_size)
         model.register_session(sess)
         model.build_model(is_training=False, inst_norm=args.inst_norm)
         embedding_ids = [int(i) for i in args.embedding_ids.split(",")]
-        print("#\nembedding ids\n#")
-        print(embedding_ids)
+        #print("#\nembedding ids\n#")
+        #print(embedding_ids)
         if not args.interpolate:
             if len(embedding_ids) == 1:
                 embedding_ids = embedding_ids[0]
@@ -74,8 +68,4 @@ def main(_):
 
 
 if __name__ == '__main__':
-    print("Start application...")
-    print("####################")
-    print("\n\n\n\n\n\n\n\n\n\n")
-    print("####################")
     tf.app.run()
