@@ -9,6 +9,7 @@ from model.unet import UNet
 from model.utils import compile_frames_to_gif
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 """
 People are made to have fun and be 中二 sometimes

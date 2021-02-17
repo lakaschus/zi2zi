@@ -2,7 +2,10 @@
 from __future__ import print_function
 from __future__ import absolute_import
 
-#import tensorflow as tf
+import tensorflow as tf
+
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 import numpy as np
@@ -13,6 +16,8 @@ from collections import namedtuple
 from .ops import conv2d, deconv2d, lrelu, fc, batch_norm, init_embedding, conditional_instance_norm
 from .dataset import TrainDataProvider, InjectDataProvider, NeverEndingLoopingProvider
 from .utils import scale_back, merge, save_concat_images
+
+
 
 # Auxiliary wrapper classes
 # Used to save handles(important nodes in computation graph) for later evaluation
@@ -409,7 +414,7 @@ class UNet(object):
         def save_imgs(imgs, count):
             #print("#\nsave_imgs called!\n#")
             p = os.path.join(save_dir, "inferred_%04d.png" % count)
-            save_concat_images(imgs, img_path=p)
+            save_concat_images(imgs, save_dir)
             print("generated images saved at %s" % p)
 
         count = 0
@@ -418,9 +423,9 @@ class UNet(object):
             fake_imgs = self.generate_fake_samples(source_imgs, labels)[0]
             merged_fake_images = merge(scale_back(fake_imgs), [self.batch_size, 1])
             batch_buffer.append(merged_fake_images)
-            if len(batch_buffer) == 10:
-                save_imgs(batch_buffer, count)
-                batch_buffer = list()
+            #if len(batch_buffer) == 10:
+            #    save_imgs(batch_buffer, count)
+            #    batch_buffer = list()
             count += 1
         if batch_buffer:
             # last batch

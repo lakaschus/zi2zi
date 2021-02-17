@@ -3,6 +3,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import tensorflow as tf
 
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 def batch_norm(x, is_training, epsilon=1e-5, decay=0.9, scope="batch_norm"):
     return tf.contrib.layers.batch_norm(x, decay=decay, updates_collections=None, epsilon=epsilon,

@@ -15,8 +15,6 @@ import collections
 #reload(sys)
 #sys.setdefaultencoding("utf-8")
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
-
 if sys.version[0] == '2':
     reload(sys)
     sys.setdefaultencoding("utf-8")
@@ -26,7 +24,7 @@ CN_T_CHARSET = None
 JP_CHARSET = None
 KR_CHARSET = None
 
-DEFAULT_CHARSET = "./charset/cjk.json"
+DEFAULT_CHARSET = "charset/cjk.json"
 
 
 def load_global_charset():
